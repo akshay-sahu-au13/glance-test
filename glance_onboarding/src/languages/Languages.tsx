@@ -10,12 +10,12 @@ import telugu from '../assets/languageOptions/telugu.webp';
 
 
 const LanguageData = [
-    {name:'tamil', url:tamil},
+    {name:'Tamil', url:tamil},
     {name:'Kannada', url:kannada},
     {name: 'Bangla', url: bangla},
     {name:'Telugu', url: telugu},
     {name: 'Hindi', url: hindi},
-    {name:'marathi', url:marathi},
+    {name:'Marathi', url:marathi},
     {name:'English', url:english}
 ];
 

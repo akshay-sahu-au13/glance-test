@@ -4,12 +4,14 @@ import { css } from "goober";
 import LanguageData from "../languages/Languages";
 import colors from "../styles/colors";
 import font from "../styles/font";
+import SelectLanguages from "./language_input";
 
 
 
 const LanguagesOverlay: FunctionComponent = () => {
 
-    console.log(LanguageData);
+    const [selectedLanguages, setSelectedLanguages] = useState(["English"]);
+
     const LanguageOverlay: string = css`
         position: absolute;
         top: 50%;
@@ -21,45 +23,25 @@ const LanguagesOverlay: FunctionComponent = () => {
         z-index: 2;
         display:flex;
         flex-direction:column;
-    `
-//     const NextBtn: string = css`
-//         padding: 8px 18px;
-//         width: 65px;
-//         height: 35px;
-//         background-color: ${colors.black80};
-//         color: ${colors.white};
-//         border-radius: 40px;
-//         position: absolute;
-//         top:50%;
-//         left: 50%;
-//         transform: translate(-50%, -50%);
-//         z-index: 3;
-//         display: flex;
-//         justify-content:center;
-//         align-items: center;
-//         /* box-shadow: 0px 2px 4px rgba(43, 42, 42, 0.3); */
-//         box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3), inset 0px -1px 4px rgba(255, 255, 255, 0.205), inset 0px 2px 2px rgba(255, 255, 255, 0.253);
-//         /* backdrop-filter: blur(0px); */
-//         display: flex;
-//         justify-content: space-between;
-// `
-
+    `;
+    
     const chooseLang: string = css`
         margin: 2vh auto 0 auto;
         text-align: center;
-    `
+    `;
 
     const chooseLang__Title: string = css`
         font-size: 18px;
         line-height: 24px;
         letter-spacing: 0.3px;
-    `
+    `;
+
     const chooseLang__Text:string = css`
         display: block;
         font-size: 14px;
         font-weight: ${font.fontWtLight};
         color: rgba(255, 255, 255, 0.4);
-    `
+    `;
 
     const languageTilesContainer:string = css`
         max-height: 75%;
@@ -81,7 +63,25 @@ const LanguagesOverlay: FunctionComponent = () => {
         justify-content:center;
         align-items: center;
 
-    `
+        
+
+    `;
+
+    const SelectLanguages = (e:any) => {
+    
+        if ( selectedLanguages.includes(e.target.alt)) {
+            const idx =  selectedLanguages.indexOf(e.target.alt);
+            const copiedArray = selectedLanguages.slice();
+            copiedArray.splice(idx, 1);
+            setSelectedLanguages(copiedArray);
+        } else {
+            setSelectedLanguages(selectedLanguages => {
+            return [...selectedLanguages, e.target.alt]
+        });
+        }
+    }
+
+    console.log("Selected Languages: ",selectedLanguages);
 
     return <div className={LanguageOverlay}>
            <div className={chooseLang}>
@@ -91,13 +91,13 @@ const LanguagesOverlay: FunctionComponent = () => {
            <div className={languageTilesContainer}>
                 {
                     LanguageData.map((item: {name: string; url: string}, id: number) => {
-                        return <div className={languageTile} key={id}>
-                            <img src={item.url} alt={item.name} height="125" />
+                        return <div className={languageTile} key={id} >
+                            <img src={item.url} alt={item.name} height="145" onClick={SelectLanguages} />
                         </div>
                     })
                 }
            </div>
         </div>
-}
+};
 
 export default LanguagesOverlay;
