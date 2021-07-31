@@ -1,18 +1,11 @@
 import { FunctionComponent, h } from "preact";
-import {useState} from 'preact/hooks';
-import { css } from "goober";
-import LanguageData from "../languages/Languages";
+
+import CheckedCircle from "./checked_circle";
 import colors from "../styles/colors";
+import { css } from "goober";
 import font from "../styles/font";
-import SelectLanguages from "./language_input";
 
-
-
-const LanguagesOverlay: FunctionComponent = () => {
-
-    const [selectedLanguages, setSelectedLanguages] = useState(["English"]);
-
-    const LanguageOverlay: string = css`
+const LanguageOverlay: string = css`
         position: absolute;
         top: 50%;
         left:0;
@@ -23,65 +16,70 @@ const LanguagesOverlay: FunctionComponent = () => {
         z-index: 2;
         display:flex;
         flex-direction:column;
+        scroll-behavior: smooth;
     `;
     
-    const chooseLang: string = css`
-        margin: 2vh auto 0 auto;
-        text-align: center;
-    `;
+const chooseLang: string = css`
+    margin: 2vh auto 0 auto;
+    text-align: center;
+`;
 
-    const chooseLang__Title: string = css`
-        font-size: 18px;
-        line-height: 24px;
-        letter-spacing: 0.3px;
-    `;
+const chooseLang__Title: string = css`
+    font-size: ${font.fontLarge};
+    line-height: 24px;
+    letter-spacing: 0.3px;
+    color: ${colors.white}
+`;
 
-    const chooseLang__Text:string = css`
-        display: block;
-        font-size: 14px;
-        font-weight: ${font.fontWtLight};
-        color: rgba(255, 255, 255, 0.4);
-    `;
+const chooseLang__Text:string = css`
+    display: block;
+    font-size: ${font.fontBase};
+    font-weight: ${font.fontWtLight};
+    color: rgba(255, 255, 255, 0.4);
+`;
 
-    const languageTilesContainer:string = css`
-        max-height: 75%;
-        width: 100%;
-        display: flex;
-        flex-wrap: wrap;
-        overflow-y: scroll;
-        &::-webkit-scrollbar {
-                display: none;
-            }
-
-    `;
-
-    const languageTile:string = css `
-        width: 50%;
-        height: 50%;
-        background-color: ${colors.black};
-        display: flex;
-        justify-content:center;
-        align-items: center;
-
-        
-
-    `;
-
-    const SelectLanguages = (e:any) => {
+const languageTilesContainer:string = css`
     
-        if ( selectedLanguages.includes(e.target.alt)) {
-            const idx =  selectedLanguages.indexOf(e.target.alt);
-            const copiedArray = selectedLanguages.slice();
-            copiedArray.splice(idx, 1);
-            setSelectedLanguages(copiedArray);
-        } else {
-            setSelectedLanguages(selectedLanguages => {
-            return [...selectedLanguages, e.target.alt]
-        });
+    padding: 0 5vw;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    overflow-y: scroll;
+    box-sizing: border-box;
+    &::-webkit-scrollbar {
+            display: none;
         }
+    @media (min-width: 450px) {
+        justify-content: space-between; // for bigger screens i.e ipads, kindle, surface
     }
+`;
 
-    console.log("Selected Languages: ",selectedLanguages);
+const languageTile:string = css `
+    background-color: ${colors.black};
+    display: flex;
+    justify-content:center;
+    position: relative;
+    & .notSelected {
+        width: 17vh;
+        margin: 10px 5px;
+    }
+`;
+const languageTileSelected:string = css `
+    width: 17vh;
+    margin: 10px 5px;
+    background-color: ${colors.black_2};
+    box-shadow: 0 0 0 1px ${colors.white30};
+    border-radius: 20px;
+`;
+
+interface LanguagesOverlayProps {
+    selectLanguages: Function;
+    selectedLanguages: string[];
+    LanguageData: {name: string; url: any; video: string}[];
+}
+
+const LanguagesOverlay: FunctionComponent<LanguagesOverlayProps> = ({selectLanguages, selectedLanguages, LanguageData}) => {
 
     return <div className={LanguageOverlay}>
            <div className={chooseLang}>
@@ -90,12 +88,20 @@ const LanguagesOverlay: FunctionComponent = () => {
 
            <div className={languageTilesContainer}>
                 {
-                    LanguageData.map((item: {name: string; url: string}, id: number) => {
+                    LanguageData.map((item: {name: string; url: string, video: string}, id: number) => {
                         return <div className={languageTile} key={id} >
-                            <img src={item.url} alt={item.name} height="145" onClick={SelectLanguages} />
+                            {
+                                selectedLanguages.includes(item.name) && <CheckedCircle />
+                            }
+                            <img src={item.url} alt={item.name}  onClick={(e)=> selectLanguages(e,item.video)} className={selectedLanguages.includes(item.name) ? languageTileSelected: "notSelected" } />
                         </div>
                     })
+                    
                 }
+                <div className={languageTile} >
+                    <div className="notSelected" desc="placeholder"></div>
+                </div>
+                
            </div>
         </div>
 };

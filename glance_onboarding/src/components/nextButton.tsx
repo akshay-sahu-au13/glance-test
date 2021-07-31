@@ -11,7 +11,7 @@ const NextButton: FunctionComponent = () => {
         width: 60px;
         height: 30px;
         font-size:16px;
-        background-color: ${colors.black80};
+        background-color: rgba(0, 0, 0, 0.9);
         color: ${colors.white};
         border-radius: 40px;
         position: absolute;
@@ -22,8 +22,8 @@ const NextButton: FunctionComponent = () => {
         display: flex;
         justify-content:center;
         align-items: center;
-        box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3), inset 0px -1px 4px rgba(255, 255, 255, 0.205), inset 0px 2px 2px rgba(255, 255, 255, 0.253);
-        /* backdrop-filter: blur(0px); */
+        box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3), inset 0px -1px 2px rgba(255, 255, 255, 0.205), inset 0px 1px 2px rgba(255, 255, 255, 0.253);
+        /* backdrop-filter: blur(10px); */
         display: flex;
         justify-content: space-between;
 
