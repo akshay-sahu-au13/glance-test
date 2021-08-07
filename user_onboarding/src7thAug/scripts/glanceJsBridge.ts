@@ -1,7 +1,5 @@
 /* eslint-disable no-undef */
 
-// PreferencesStore
-
 import CategoryData from '../mockData/data';
 
 var catgData = CategoryData;
