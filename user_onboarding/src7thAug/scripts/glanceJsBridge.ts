@@ -41,15 +41,6 @@ export function getLong(key, defaultValue) {
     }
   }
 }
-export function putFloat(key, value) {
-  if (typeof PreferencesStore != 'undefined') {
-    try {
-      PreferencesStore.putFloat(key, value);
-    } catch (err) {
-      console.log(err);
-    }
-  }
-}
 
 export function getFloat(key, defaultValue) {
   if (typeof PreferencesStore != 'undefined') {
