@@ -1,0 +1,17 @@
+export default {
+  black: '#000',
+  white: '#fff',
+  white30: 'rgba(255, 255, 255, 0.3)',
+  black80: 'rgba(0, 0, 0, 0.8)',
+  black_2: '#0D0D0D',
+  black_3: '#484848',
+  pink: '#ff1493',
+  lightPink: '#FE3460',
+  darkGrey: '#3E3C3B',
+  black1: '#080808',
+  black2: '#0B0B0B',
+  black3: '#0E0E0E',
+  black4: '#111111',
+  black5: '#141414',
+  black6: '#1C1C1C',
+};
